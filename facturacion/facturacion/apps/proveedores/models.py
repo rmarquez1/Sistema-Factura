@@ -19,16 +19,27 @@ class Cheque(models.Model):
 
 	
 class Resumen_proveedores(models.Model):
+        pendiente = 'PD'
+        realizado = 'RE'
 	nombre = models.ForeignKey(Proveedor)
 	monto_bsf = models.FloatField()
 	cheque_elaborar = models.FloatField()
 	quedaria_en = models.FloatField()
+        PENDIENTE_CHOICES = (
+            (pendiente, 'Pendiente'),
+            (realizado, 'Realizado'),
+        )
+        pendiente_choices = models.CharField(max_length = 2,
+                                            choices = PENDIENTE_CHOICES)
 
 class Resumen_por_proveedor(models.Model):
 	nombre = models.ForeignKey(Proveedor)
 	numero_factura = models.ForeignKey(Factura)
 	numero_cheque = models.ForeignKey(Cheque)
-	total = models.FloatField()
-
-
-
+        base_imponible = models.FloatField()
+        iva_doce = models.FloatField()
+        monto_factura_entrantes = models.FloatField()
+        monto_factura_pagadas = models.FloatField()
+	total_factura = models.FloatField()
+        iva = models.FloatField()
+        cheque_pagar = models.FloatField()
