@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/templates/proveedores/seleccion_resumen.html</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/templates/proveedores/seleccion_accion.html</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/templates/base_participante.html</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/templates/proveedores/accion_factura.html</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/templates/proveedores/resumen_por_proveedor.html</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/apps/proveedores/urls.py</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/static/css/main.css</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/apps/proveedores/models.py</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/urls.py</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/apps/proveedores/forms.py</file>
+            <file>file:/home/ramon/Sistema-Erick/Sistema-Factura/facturacion/facturacion/apps/proveedores/views.py</file>
+        </group>
     </open-files>
 </project-private>

@@ -1,0 +1,87 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+========================================================================== */
+
+ul#menu1 {
+     margin: 0;
+     padding: 0;
+     list-style-type: none;
+     font-family: sans-serif;
+     font-size: 16px;
+     font-weight: bold;
+    } 
+    
+ul#menu1 li {
+	background-color: #AF7051;
+	float: left;
+	height:2.5em;
+	line-height:2.5em;
+	border-color: #AF7051;
+	border-style: solid;
+	border-width: 3px 0;
+  }
+  
+ul#menu1 a {
+	color: #F0D7B5;
+	text-decoration:none; 
+	padding: 0 20px; 
+	display: block;
+	height: 100%;
+}
+
+#menu1 li:hover {
+       background-color: #F0D7B5;
+     }
+   #menu1 li:hover a {
+       color: #AF7051;
+     }
+
+
+    padding: 0;
+}
+.errorlist li {
+    background-color: red;
+    color: white;
+    display: block;
+    font-size: 15px;
+    margin: 0 0 3px;
+    padding: 4px 5px;
+}
+
+a{
+	display: block;
+	width: 200px;
+	height: 30px;
+	padding: 6px;
+	line-height:30px;
+	text-decoration: none;
+	text-align: center;
+	color: #FFF;
+	background-color:#49afcd;
+	position: relative;
+	border-left: 2px solid #333;
+}
+a:hover {
+	color:black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

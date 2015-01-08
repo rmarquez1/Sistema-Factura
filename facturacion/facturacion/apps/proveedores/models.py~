@@ -1,8 +1,7 @@
 from django.db import models
-from datetime import datetime    
 
 class Proveedor(models.Model):
-    nombre = models.CharField(primary_key=True, max_length=200, verbose_name= "Nombre")
+    nombre = models.CharField(max_length=200, verbose_name= "Nombre")
     
     def __unicode__(self):
         return self.nombre
@@ -10,14 +9,16 @@ class Proveedor(models.Model):
 # Create your models here.
 class Factura(models.Model):
 	numero = models.IntegerField(primary_key=True)
-	monto = models.FloatField(default=0.00)
-    
+	fecha_factura = models.DateTimeField()
+	monto = models.FloatField()
+        
         def __unicode__(self):
             return str(self.numero)
 
 class Cheque(models.Model):
 	numero = models.IntegerField(primary_key=True)
-	monto = models.FloatField(default=0.00)
+	fecha_cheque = models.DateTimeField()
+	monto = models.FloatField()
         
         def __unicode__(self):
             return str(self.numero)
@@ -41,7 +42,6 @@ class Resumen_por_proveedor(models.Model):
 	nombre = models.ForeignKey(Proveedor)
 	numero_factura = models.IntegerField(default=0)
 	numero_cheque = models.IntegerField(default=0)
-        fecha= models.DateField('%m/%d/%Y')
 	base_imponible = models.FloatField(default=0.00)
 	iva_doce = models.FloatField(default= 0.00)
 	monto_factura_entrantes = models.FloatField(default=0.00)
@@ -51,5 +51,5 @@ class Resumen_por_proveedor(models.Model):
 	cheque_pagar = models.FloatField(default= 0.00)
 	
 	def __unicode__(self):
-	    return self.nombre_id
+	    return self.nombre
         

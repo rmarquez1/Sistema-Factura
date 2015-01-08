@@ -12,6 +12,14 @@ class Resumen_proveedoresForm(forms.ModelForm):
 class Resumen_por_proveedorForm(forms.ModelForm):
 	class Meta:
 		model = Resumen_por_proveedor
+                
+        def pertenece_factura(self):
+            factura = self.cleaned_data['numero_factura']
+            
+            facturas = Factura.objects.filter(numero=factura)
+            if len(facturas) != 0:
+                raise forms.ValidationError("Ya existe este numero de factura")
+            return factura
 
 
 class FacturaForm(forms.ModelForm):

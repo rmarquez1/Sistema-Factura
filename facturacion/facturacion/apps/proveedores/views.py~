@@ -15,7 +15,7 @@ def crear_proveedores(request):
     else:
         formulario = ProveedorForm()
     return render_to_response('proveedores/crear_proveedores.html', {'formulario':formulario}, context_instance= RequestContext(request))
-"""
+
 def crear_factura(request):
     if request.method == 'POST':
         formulario = FacturaForm(request.POST)
@@ -35,7 +35,7 @@ def crear_cheque(request):
     else:
         formulario = ChequeForm()
     return render_to_response('proveedores/crear_cheque.html', {'formulario':formulario}, context_instance= RequestContext(request))
-"""
+
 def resumen_proveedores(request):
     if request.method == 'POST':
         formulario = Resumen_proveedoresForm(request.POST)
@@ -48,40 +48,14 @@ def resumen_proveedores(request):
 
 def accion_factura(request):
     if request.method == 'POST':
-        #Buscamos el proveedor correspondiete
-        nombre = request.POST["nombre"]
-        proveedor = Proveedor.objects.filter(nombre=nombre)
-        nombre_proveedor = proveedor[0]
-        
-        fecha = request.POST["fecha"]
-        
-        #Buscamos la factura correspondiente
-        numero_factura = request.POST["numero_factura"]
-        base_imponible = request.POST["base_imponible"]
-        iva_12 = float(base_imponible) * 0.12
-        monto_factura = request.POST["monto_factura_entrantes"]
-        iva_75 = iva_12 * 0.75
-        cheque_pagar = float(monto_factura) - iva_75
-        
-        #Creamos la factura
-        factura = Factura(numero = numero_factura, monto=monto_factura)
-        factura.save()
-        
-        facturas = Factura.objects.all()
-        total_factura = calculo_total_factura(facturas)
-        
-        # Creacion del resumen
-        resumen = Resumen_por_proveedor(    nombre=nombre_proveedor,
-                                            fecha=fecha,
-                                            numero_factura = numero_factura, 
-                                            base_imponible=base_imponible,
-                                            iva_doce = iva_12,
-                                            monto_factura_entrantes=monto_factura,
-                                            total_factura=total_factura,
-                                            iva = iva_75,
-                                            cheque_pagar=cheque_pagar)
-        resumen.save()
-        return HttpResponseRedirect('/proveedores/accion_factura')
+        formulario = Resumen_por_proveedorForm(request.POST)
+        if formulario.is_valid():
+            numero_factura = request.POST["numero_factura"]
+            base_imponible = request.POST["base_imponible"]
+            p = Factura.objects.filter(numero = numero_factura)
+            iva_12 = base_imponible * 0.12
+            formulario.save()
+            return HttpResponseRedirect('/proveedores/accion_factura')
     else:
         formulario = Resumen_por_proveedorForm()
     return render_to_response('proveedores/accion_factura.html', {'formulario':formulario}, context_instance=RequestContext(request))
@@ -93,25 +67,3 @@ def seleccion_accion(request):
     elif option == 'c':
         return HttpResponseRedirect('/proveedores/accion_cheque')
     return render_to_response('proveedores/seleccion_accion.html',context_instance=RequestContext(request))
-
-
-def seleccion_resumen(request):
-    proveedor = Resumen_por_proveedorForm()
-    return render_to_response('proveedores/seleccion_resumen.html',
-                              {'proveedor':proveedor},
-                              context_instance=RequestContext(request))
-
-def resumen_por_proveedor(request):
-    nombre = request.POST["nombre"]
-    proveedor = Proveedor.objects.filter(nombre=nombre)
-    resumen = Resumen_por_proveedor.objects.filter(nombre=proveedor[0])
-    return render_to_response('proveedores/resumen_por_proveedor.html',
-                              {'nombre':nombre,'resumen': resumen},
-                              context_instance=RequestContext(request))
-
-def calculo_total_factura(lista):
-    sum = 0
-    for i in range(len(lista)):
-        sum += lista[i].monto
-        
-    return sum
