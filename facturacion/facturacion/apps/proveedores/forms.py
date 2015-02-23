@@ -29,3 +29,10 @@ class FacturaForm(forms.ModelForm):
 class ChequeForm(forms.ModelForm):
 	class Meta:
 		model = Cheque
+
+
+class SeleccionFacturasForm(forms.Form):
+	facturas = forms.ModelMultipleChoiceField(
+		queryset = Resumen_por_proveedor.objects.filter(),
+		widget  = forms.CheckboxSelectMultiple,
+	)

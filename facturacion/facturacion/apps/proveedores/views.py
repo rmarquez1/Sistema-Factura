@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 
-from .forms import ProveedorForm, Resumen_por_proveedorForm, Resumen_proveedoresForm, FacturaForm, ChequeForm
+from .forms import ProveedorForm, Resumen_por_proveedorForm, Resumen_proveedoresForm, FacturaForm, ChequeForm, SeleccionFacturasForm
 from .models import Resumen_proveedores, Resumen_por_proveedor, Proveedor, Factura, Cheque
 
 def crear_proveedores(request):
@@ -109,9 +109,40 @@ def resumen_por_proveedor(request):
                               {'nombre':nombre,'resumen': resumen},
                               context_instance=RequestContext(request))
 
-def calculo_total_factura(lista):
-    sum = 0
-    for i in range(len(lista)):
-        sum += lista[i].monto
+def seleccion_proveedor(request):
+    proveedor = Resumen_por_proveedorForm()
+    return render_to_response('proveedores/seleccion_proveedor.html',
+                              {'proveedor':proveedor},
+                              context_instance=RequestContext(request))
+
+def seleccion_facturas(request):
+    nombre = request.POST["nombre"]
+    proveedor = Proveedor.objects.filter(nombre=nombre)
+    formulario = SeleccionFacturasForm()
+    return render_to_response('proveedores/seleccion_facturas.html',
+                              {'formulario':formulario},
+                              context_instance=RequestContext(request))
+'''
+def seleccion_facturas(request):
+    if request.method == 'POST':
+        nombre = request.POST["nombre"]
+        proveedor = Proveedor.objects.filter(nombre=nombre)
+
+        formulario=SeleccionFacturasForm(request.POST)
+        lista_facturas_seleccionadas = request.POST.getlist('facturas')
+
+        # Calculando la suma de las facturas seleccionadas
+        suma = 0
+        for lista in lista_facturas_seleccionadas:
+            numero = int(lista)
+            suma = Resumen_por_proveedor.objects.filter(nombre=proveedor[0],numero_factura=numero)[0].monto_factura_entrantes
+            
+        print suma
         
-    return sum
+        return HttpResponseRedirect('/proveedores/seleccion_facturas')
+    else:
+        formulario = SeleccionFacturasForm()
+    return render_to_response('proveedores/seleccion_facturas.html',
+                              {'formulario':formulario},
+                              context_instance=RequestContext(request))
+'''

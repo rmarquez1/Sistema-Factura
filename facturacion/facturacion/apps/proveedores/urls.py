@@ -7,6 +7,8 @@ urlpatterns = patterns('',
     url(r'^resumen_proveedores/$', 'facturacion.apps.proveedores.views.resumen_proveedores'),
     url(r'^seleccion_accion/$', 'facturacion.apps.proveedores.views.seleccion_accion'),
     url(r'^accion_factura/$', 'facturacion.apps.proveedores.views.accion_factura'),
+    url(r'^seleccion_proveedor/$', 'facturacion.apps.proveedores.views.seleccion_proveedor'),
+    url(r'^seleccion_facturas/$', 'facturacion.apps.proveedores.views.seleccion_facturas'),
     url(r'^seleccion_resumen/$', 'facturacion.apps.proveedores.views.seleccion_resumen'),
     url(r'^resumen_por_proveedor/$', 'facturacion.apps.proveedores.views.resumen_por_proveedor'),
 )

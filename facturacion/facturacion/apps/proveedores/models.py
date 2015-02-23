@@ -41,7 +41,7 @@ class Resumen_por_proveedor(models.Model):
 	nombre = models.ForeignKey(Proveedor)
 	numero_factura = models.IntegerField(default=0)
 	numero_cheque = models.IntegerField(default=0)
-        fecha= models.DateField('%m/%d/%Y')
+	fecha= models.DateField('%m/%d/%Y')
 	base_imponible = models.FloatField(default=0.00)
 	iva_doce = models.FloatField(default= 0.00)
 	monto_factura_entrantes = models.FloatField(default=0.00)
