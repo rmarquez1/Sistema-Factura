@@ -50,6 +50,6 @@ class Resumen_por_proveedor(models.Model):
 	iva = models.FloatField(default= 0.00)
 	cheque_pagar = models.FloatField(default= 0.00)
 	
-	def __unicode__(self):
-	    return self.nombre_id
+	def __str__(self):
+	    return self.numero_factura
         

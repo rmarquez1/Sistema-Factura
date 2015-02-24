@@ -32,7 +32,4 @@ class ChequeForm(forms.ModelForm):
 
 
 class SeleccionFacturasForm(forms.Form):
-	facturas = forms.ModelMultipleChoiceField(
-		queryset = Resumen_por_proveedor.objects.filter(),
-		widget  = forms.CheckboxSelectMultiple,
-	)
+	facturas = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,label="Escoja las facturas")

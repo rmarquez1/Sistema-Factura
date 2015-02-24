@@ -117,16 +117,40 @@ def seleccion_proveedor(request):
 
 def seleccion_facturas(request):
     nombre = request.POST["nombre"]
+    
     proveedor = Proveedor.objects.filter(nombre=nombre)
     formulario = SeleccionFacturasForm()
+
+    formulario.fields['facturas'].choices=[(x.nombre,x.numero_factura,x.numero_cheque,
+        x.fecha,x.base_imponible,x.iva_doce,x.monto_factura_entrantes,x.monto_factura_pagadas,
+        x.total_factura,x.iva,x.cheque_pagar) for x in Resumen_por_proveedor.objects.filter(nombre=proveedor[0])]
+
     return render_to_response('proveedores/seleccion_facturas.html',
-                              {'formulario':formulario},
+                              {'formulario':formulario,'nombre':nombre},
                               context_instance=RequestContext(request))
+
+def obtener_facturas(request):
+    lista_facturas = request.POST.getlist('facturas')
+    print type(lista_facturas[0])
+
+    nombre = 'NOMBRE'
+    formulario = SeleccionFacturasForm()
+    formulario.fields['facturas'].choices=[(x.nombre,x.numero_factura,x.numero_cheque,
+        x.fecha,x.base_imponible,x.iva_doce,x.monto_factura_entrantes,x.monto_factura_pagadas,
+        x.total_factura,x.iva,x.cheque_pagar) for x in Resumen_por_proveedor.objects.all()]
+
+    return render_to_response('proveedores/seleccion_facturas.html',
+                              {'formulario':formulario,'nombre':nombre},
+                              context_instance=RequestContext(request))
+
 '''
 def seleccion_facturas(request):
     if request.method == 'POST':
         nombre = request.POST["nombre"]
+        print nombre
         proveedor = Proveedor.objects.filter(nombre=nombre)
+
+        print proveedor[0]
 
         formulario=SeleccionFacturasForm(request.POST)
         lista_facturas_seleccionadas = request.POST.getlist('facturas')
@@ -146,3 +170,9 @@ def seleccion_facturas(request):
                               {'formulario':formulario},
                               context_instance=RequestContext(request))
 '''
+def calculo_total_factura(lista):
+    sum = 0
+    for i in range(len(lista)):
+        sum += lista[i].monto
+
+    return sum
